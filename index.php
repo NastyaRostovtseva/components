@@ -1,7 +1,7 @@
 <?php
 require_once 'Database.php';
 
-$users = Database::getInstance()->query("SELECT * FROM users");
+$users = Database::getInstance()->query("SELECT * FROM users WHERE username IN (?, ?)", ['Petr', 'Ivan']);
 
 if ($users->error()){
     echo 'we haw an error';
@@ -10,6 +10,4 @@ if ($users->error()){
         echo $user->username . '<br>';
     }
 }
-if (count($users->count())) {
 
-}
