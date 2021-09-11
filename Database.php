@@ -10,7 +10,7 @@ class Database {
     private function __construct()
     {
         try {
-            $this->pdo = new PDO('mysql:host=localhost;dbname=test', 'root', 'root');
+            $this->pdo = new PDO("mysql:host=" . Config::get('mysql.host') . ";dbname=" . Config::get('mysql.database'), Config::get('mysql.username'), Config::get('mysql.password'));
         } catch (PDOException $exception) {
             die($exception->getMessage());
         }
@@ -105,5 +105,27 @@ class Database {
             return true;
         }
         return false;
+    }
+
+    public function update($table,$id, $fields = [])
+    {
+        $set = '';
+        foreach($fields as $key => $field) {
+            $set .= "{$key} = ?,";
+        }
+
+        $set = rtrim($set. ',');
+
+        $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+
+        if(!$this->query($sql, $fields)->error()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function first()
+    {
+        return $this->results()[0];
     }
 }
