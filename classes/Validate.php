@@ -1,7 +1,9 @@
 <?php
 
 class Validate {
-    private $passed = false, $errors = [], $db = null;
+    private $passed = false;
+    private $errors = [];
+    private $db = null;
 
     public function __construct()
     {
@@ -37,9 +39,17 @@ class Validate {
                             break;
 
                         case 'unique':
-                            $check = $this->db->get($rule_value, [$item, '=', $value]);
+                            $check = $this->db;
+                            $check->get($rule_value, [$item, '=', $value]);
+
                             if ($check->count()) {
                                 $this->addError("{$item} already exists.");
+                            }
+                            break;
+
+                        case 'email':
+                            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                                $this->addError("{$item} is not an email.");
                             }
                             break;
                     }

@@ -56,7 +56,7 @@ class Database {
         return $this->results;
     }
 
-    public function  count()
+    public function count()
     {
         return $this->count;
     }
@@ -107,7 +107,7 @@ class Database {
         return false;
     }
 
-    public function update($table,$id, $fields = [])
+    public function update($table, $id, $fields = [])
     {
         $set = '';
         foreach($fields as $key => $field) {
