@@ -5,8 +5,6 @@ require_once 'init.php';
 
 $user = new User;
 
-$anotherUser = new User();
-
 if($user->isLoggedIn()) {
     echo "Hi, <a href='#'>{$user->data()->username} </a>";
     echo "<p><a href='logout.php'>Logout</a></p>";
