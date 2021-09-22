@@ -2,7 +2,7 @@
 require_once 'init.php';
 
     if(Input::exists()) {
-//        if(Token::check(Input::get('token'))) {
+        if(Token::check(Input::get('token'))) {
 
             $validate = new Validate();
 
@@ -18,7 +18,7 @@ require_once 'init.php';
                 $login = $user->login(Input::get('email'), Input::get('password'));
 
                 if($login) {
-                    echo 'login successful';
+                    Redirect::to('index.php');
                 } else {
                     echo 'login failed';
                 }
@@ -27,9 +27,10 @@ require_once 'init.php';
                     echo $error . '<br>';
                 }
             }
-//        }
+        }
     }
 ?>
+
 
 <form action="" method="post">
     <div class="field">
@@ -42,7 +43,7 @@ require_once 'init.php';
         <input type="text" name="password">
     </div>
 
-<!--        <input type="hidden" name="token" value="--><?php //echo Token::generate();?><!--">-->
+        <input type="hidden" name="token" value="<?php echo Token::generate();?>">
 
     <div class="field">
         <button type="submit">Submit</button>

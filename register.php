@@ -2,7 +2,7 @@
 require_once 'init.php';
 
 if (Input::exists()) {
-//    if (Token::check(Input::get('token'))) {
+    if (Token::check(Input::get('token'))) {
         $validate = new Validate();
 
         $validation = $validate->check($_POST, [
@@ -44,7 +44,7 @@ if (Input::exists()) {
                 echo $error . "<br>";
             }
         }
-//    }
+    }
 }
 
 ?>
@@ -72,7 +72,7 @@ if (Input::exists()) {
         <input type="text" name="password_again">
     </div>
 
-<!--    <input type="hidden" name="token" value="--><?php //echo Token::generate();?><!--">-->
+    <input type="hidden" name="token" value="<?php echo Token::generate();?>">
 
     <div class="field">
         <button type="submit">Submit</button>
