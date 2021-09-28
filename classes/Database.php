@@ -114,9 +114,10 @@ class Database {
             $set .= "{$key} = ?,";
         }
 
-        $set = rtrim($set. ',');
+        $set = rtrim($set, ',');
 
         $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+
 
         if(!$this->query($sql, $fields)->error()) {
             return true;

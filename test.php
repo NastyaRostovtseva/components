@@ -1,5 +1,6 @@
 <?php
-require_once 'Session.php';
 session_start();
+require_once 'Session.php';
+
 
 echo Session::flash('success');

@@ -51,15 +51,15 @@ if (Input::exists()) {
 
 
 <form action="" method="post">
-    <?php echo Session::flash('success'); ?>
+    <?php echo Session::flash('success');?>
     <div class="field">
         <label for="username">Username</label>
-        <input type="text" name="username" value="<?php echo Input::get('username')?>">
+        <input type="text" name="username" value="<?php echo Input::get('username');?>">
     </div>
 
     <div class="field">
         <label for="">Email</label>
-        <input type="text" name="email" value="<?php echo Input::get('email')?>">
+        <input type="text" name="email" value="<?php echo Input::get('email');?>">
     </div>
 
     <div class="field">

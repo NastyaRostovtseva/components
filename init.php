@@ -50,3 +50,4 @@ if(Cookie::exists(Config::get('cookie.cookie_name')) && !Session::exists(Config:
         $user->login();
     }
 }
+

@@ -1,15 +1,17 @@
 <?php
-
 class User {
     private $db;
     private $data;
     private $session_name;
     private $isLoggedIn;
+    private $cookieName;
+
 
     public function __construct($user = null)
     {
         $this->db = Database::getInstance();
         $this->session_name = Config::get('session.user_session');
+        $this->cookieName = Config::get('cookie.cookie_name');
 
         if(!$user) {
             if (Session::exists($this->session_name)) {
@@ -17,8 +19,6 @@ class User {
 
                 if($this->find($user)) {
                     $this->isLoggedIn = true;
-                } else {
-                    //logout
                 }
             }
         }
@@ -28,6 +28,7 @@ class User {
     {
         $this->db->insert('users', $fields);
     }
+
 
     public function login($email = null, $password = null, $remember = false)
     {
@@ -90,6 +91,22 @@ class User {
 
     public function logout()
     {
+        $this->db->delete('user_sessions', ['user_id', '=', $this->data()->id]);
         Session::delete($this->session_name);
+        Cookie::delete($this->cookieName);
+    }
+
+    public function exists()
+    {
+        return (!empty($this->data())) ? true : false;
+    }
+
+    public function update($fields = [], $id = null)
+    {
+        if (!$id && $this->isLoggedIn()) {
+            $id = $this->data()->id;
+        }
+
+        $this->db->update('users', $id, $fields);
     }
 }
